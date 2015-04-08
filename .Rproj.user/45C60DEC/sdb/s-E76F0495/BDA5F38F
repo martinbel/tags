@@ -1,0 +1,17 @@
+{
+    "contents" : "source(\"2_preproc.R\")\n\nlibrary(glmnet)\nfit <- glmnet(X_train, y=class[inx], family='multinomial', alpha=0)\n\nplot(fit)\n\npredictions <- predict(fit, X_test, s=0.074600, type='class')\n\n\nhead(predictions)\n\n\nmedias = apply(X_train, 2, mean)\n",
+    "created" : 1428441386606.000,
+    "dirty" : false,
+    "encoding" : "LATIN1",
+    "folds" : "",
+    "hash" : "365198336",
+    "id" : "BDA5F38F",
+    "lastKnownWriteTime" : 1428445215,
+    "path" : "~/Desktop/dm/free/tags/3_model.R",
+    "project_path" : "3_model.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

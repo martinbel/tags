@@ -1,0 +1,17 @@
+{
+    "contents" : "pkg = c(\"data.table\", \"plyr\", \"tm\", \"e1071\", \"Matrix\")\nsapply(pkg, require, c=T)\n\nsource('1_read_data.R')\nsource('funs.R')\n\n### drop null\nd$q_char <- nchar(as.character(d[,2]))\nd <- d[d$q_char > 0, ]\nd <- d[-which(is.na(d[,2])), ]\n\n### class\nclass <- as.character(d[, 2])\nq_class <- sort(table(class), decreasing=TRUE)\nq_class = data.frame(q_class[-1])\nq_class$porcentage <- (q_class[,1] / sum(q_class) ) * 100\n\n# q_class[q_class$porcentage > 0.0001485884, ]\n\n### title - body\ntitle <- as.character(d[, 3])\nbody <- as.character(d[, 4])\n\nX_title = bag_words(title)\nX_title = removeSparseTerms(X_title, 0.99)\n\nX_body = bag_words(body)\nX_body = removeSparseTerms(X_body, 0.999)\n\nX_all <- cbind(X_title, X_body)\nX_all <- as_sparseMatrix(X_all)\n\n# Define a seed\nset.seed(123)\ninx <- sample(nrow(d), round(nrow(d) * 0.7))\n\nX_train <- X_all[inx, ]\nX_test <- X_all[-inx, ]\n\n",
+    "created" : 1428433820598.000,
+    "dirty" : false,
+    "encoding" : "LATIN1",
+    "folds" : "",
+    "hash" : "283956698",
+    "id" : "1FDA53A2",
+    "lastKnownWriteTime" : 1428445047,
+    "path" : "~/Desktop/dm/free/tags/2_preproc.R",
+    "project_path" : "2_preproc.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

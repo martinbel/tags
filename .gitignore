@@ -1,0 +1,8 @@
+*.7z
+*.RData
+*.xml
+*.csv
+*.txt
+*.tsv
+*.Rproj/user/*
+*.zip

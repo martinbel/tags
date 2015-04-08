@@ -1,0 +1,17 @@
+{
+    "contents" : "devtools::install_github(\"cpsievert/XML2R\")\n\nlibrary(XML2R)\nobs <- XML2Obs(files[6], local=TRUE)\nobs <- ldply(as.list(obs), 'rbind')\n\ntable(names(obs))\n",
+    "created" : 1428457143487.000,
+    "dirty" : false,
+    "encoding" : "LATIN1",
+    "folds" : "",
+    "hash" : "909051052",
+    "id" : "435A3667",
+    "lastKnownWriteTime" : 1428457427,
+    "path" : "~/Desktop/dm/free/tags/stackexchange/beer.stackexchange.com/XML2R.R",
+    "project_path" : "stackexchange/beer.stackexchange.com/XML2R.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
