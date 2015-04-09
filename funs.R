@@ -1,6 +1,6 @@
 bag_words <- function(character_vector){
   ### Create a document term matrix from a character vector
-  character_vector <- gsub('[^[:punct:]]', '', character_vector)
+  character_vector <- gsub('<.*?>|[[:digit:]]+\t|\t[[:digit:]]+|\\?', ' ', character_vector)
   corpus = VCorpus(VectorSource(character_vector))
   corpus <- tm_map(corpus, stripWhitespace) # strip white space
   corpus <- tm_map(corpus, removeWords, stopwords("english")) # remove stop Words
