@@ -16,8 +16,8 @@ q_class <- class[, .N, by=tag]
 q_class <- q_class[order(-N)]
 
 ### to use RWeka
-library('RWeka')
-options(mc.cores=1)
+# library('RWeka')
+# options(mc.cores=1)
 
 ### Make bag of words of title and body
 

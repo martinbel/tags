@@ -67,9 +67,3 @@ metrics <- function(y_test, predictions){
   list(tbl=tbl, summary=summary)
 }
 
-
-
-
-sensitividad <- tbl[1,1] / sum(tbl[,1])
-especificidad <- tbl[2,2] / sum(tbl[,2])
-list(tbl=tbl, accuracy=accuracy, sensitividad=sensitividad, especificidad=especificidad)
