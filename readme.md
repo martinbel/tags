@@ -10,6 +10,11 @@ in a file called body_tail.csv.
 
 2) Run read_cut.R in order to find the relevant tags for modelling, and keep the
 titles and body that match those tags.
+- At line 41 and 52, the script reads a 10 GB chunk of the body.csv file in memory. 
+I've done it this way in order to meet the deadline. An iterative script was taking too long.
+This is done just to output a dataset with the common tags and it's respective body.
+There is an alternative script (slower) called 1_preproc_body_line.py that should do the job if you
+have memory constraints. There is an R version for a similar task: 1_read_large.R
 
 ## Model preprocessing
 Run 2_preproc.R

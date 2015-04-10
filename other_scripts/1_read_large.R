@@ -11,7 +11,7 @@ i = 1
 while (length(oneLine <- readLines(con, n = 1)) > 0) {
   row <- data.frame(do.call(rbind, strsplit(oneLine, '\t')), stringsAsFactors=FALSE)
   if(length(row) > 1 & nchar(row[, 12]) > 0 & nchar(row[, 3]) > 0){
-      try(write.table(row[, c(12, 3, 11)], 
+      try(write.table(row[, c(12, 3, 11, 1)], 
                       file='out.csv', append=T, row.names=F,
                       col.names = F, sep='|'), silent=T)
       if( (i %% 10000) == 0) {

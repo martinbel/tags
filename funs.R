@@ -2,6 +2,7 @@
 ### Unigram bag_words
 bag_words <- function(character_vector){
   ### Create a document term matrix from a character vector
+  # removes all tags such as <p>, <code> 
   character_vector <- gsub('<.*?>|[[:digit:]]+\t|\t[[:digit:]]+|\\?', ' ', character_vector)
   corpus = VCorpus(VectorSource(character_vector))
   corpus <- tm_map(corpus, stripWhitespace) # strip white space
@@ -11,7 +12,6 @@ bag_words <- function(character_vector){
 }
 
 ### Bigram bag_words
-
 BigramTokenizer <- function(x) {
     RWeka::NGramTokenizer(x, RWeka::Weka_control(min = 2, max = 2))
 }
@@ -27,6 +27,7 @@ bag_words_bigram <- function(character_vector){
     control = list(weighting = weightTfIdf, tokenize=BigramTokenizer))
 }
 
+# helper function
 as_sparseMatrix <- function(simple_triplet_matrix_sparse) {
   retval <-  sparseMatrix(i=as.numeric(simple_triplet_matrix_sparse$i),
                           j=as.numeric(simple_triplet_matrix_sparse$j),
@@ -38,6 +39,7 @@ as_sparseMatrix <- function(simple_triplet_matrix_sparse) {
 }
 
 
+# Metrics functions
 accuracy <- function(y_test, predictions){
   tbl <- table(y_test, predictions)
   accuracy <- sum(diag(tbl)) / sum(tbl)
