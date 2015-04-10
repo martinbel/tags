@@ -1,3 +1,5 @@
+
+### Unigram bag_words
 bag_words <- function(character_vector){
   ### Create a document term matrix from a character vector
   character_vector <- gsub('<.*?>|[[:digit:]]+\t|\t[[:digit:]]+|\\?', ' ', character_vector)
@@ -8,6 +10,22 @@ bag_words <- function(character_vector){
   dtm <- DocumentTermMatrix(corpus, control = list(weighting = weightTfIdf))
 }
 
+### Bigram bag_words
+
+BigramTokenizer <- function(x) {
+    RWeka::NGramTokenizer(x, RWeka::Weka_control(min = 2, max = 2))
+}
+
+bag_words_bigram <- function(character_vector){
+  ### Create a document term matrix from a character vector
+  character_vector <- gsub('<.*?>|[[:digit:]]+\t|\t[[:digit:]]+|\\?', ' ', character_vector)
+  corpus = VCorpus(VectorSource(character_vector))
+  corpus <- tm_map(corpus, stripWhitespace) # strip white space
+  corpus <- tm_map(corpus, removeWords, stopwords("english")) # remove stop Words
+  corpus <- tm_map(corpus, stemDocument) # stemming
+  dtm <- DocumentTermMatrix(corpus, 
+    control = list(weighting = weightTfIdf, tokenize=BigramTokenizer))
+}
 
 as_sparseMatrix <- function(simple_triplet_matrix_sparse) {
   retval <-  sparseMatrix(i=as.numeric(simple_triplet_matrix_sparse$i),
@@ -31,6 +49,7 @@ metrics <- function(y_test, predictions){
   tbl <- table(y_test, predictions)
   precision <- NULL
   recall <- NULL
+  f1_score <- NULL
 
   if(sum(dim(tbl)) == 40){
       precision <- sapply(1:20, function(i){
@@ -44,7 +63,8 @@ metrics <- function(y_test, predictions){
       f1_score <- 2 * (precision * recall) / (precision + recall)
 
   }
-  list(tbl=tbl, cbind(rownames(tbl), precision, recall, f1_score))
+  summary = data.frame(cbind(rownames(tbl), precision, recall, f1_score))
+  list(tbl=tbl, summary=summary)
 }
 
 
