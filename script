@@ -1,0 +1,41 @@
+rm(list = ls(all = TRUE)); gc()
+
+pkg = c("data.table", "plyr", "tm", "e1071", "Matrix")
+sapply(pkg, require, c=T)
+
+source('funs.R')
+
+### read data 
+d <- fread('../tags/data/model.csv', sep='|')
+
+### class
+class <- data.table(tag=d[['tag']])
+q_class <- class[, .N, by=tag]
+q_class <- q_class[order(-N)]
+
+### title - body - bag of words
+
+X_title = bag_words(d$title)
+X_title = removeSparseTerms(X_title, 0.999)
+
+X_all <- as_sparseMatrix(X_title)
+
+# Define a seed
+set.seed(123)
+inx <- sample(nrow(d), round(nrow(d) * 0.8))
+
+X_train <- X_all[inx, ]
+X_test <- X_all[-inx, ]
+
+library(glmnet)
+fit <- glmnet(X_train, y=class[inx], family='multinomial', alpha=1)
+
+plot(fit)
+predictions <- predict(fit, X_test, s=0.074600, type='class')
+
+
+head(predictions)
+
+
+medias = apply(X_train, 2, mean)
+
