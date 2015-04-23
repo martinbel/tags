@@ -10,7 +10,7 @@ set.seed(123)
 
 # Take a small sample for the model -
 # As you have less features now, you can use a larger sample
-inx <- sample(nrow(d), round(nrow(d) * 0.05)) 
+inx <- sample(nrow(d), round(nrow(d) * 0.1)) 
 
 # Class vector
 y = as.factor(gsub('[[:punct:]]', '', class$tag))
