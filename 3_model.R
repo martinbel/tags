@@ -5,7 +5,9 @@ library(glmnet)
 
 # Define a seed to split in training and testing sets
 set.seed(123)
-inx <- sample(nrow(d), round(nrow(d) * 0.8))
+# could be
+# inx <- sample(nrow(d), round(nrow(d) * 0.8)) 
+inx <- sample(nrow(d), round(nrow(d) * 0.5)) 
 
 # Class vector
 y = class$tag
@@ -16,6 +18,8 @@ y_test = y[-inx]
 X_train <- X_all[inx, ]
 X_test <- X_all[-inx, ]
 
+# remove unnecesary objects from the global environment
+rm(X_all); gc()
 
 ### Multinomial L1 regularized Logistic regression (lasso)
 # http://statweb.stanford.edu/~tibs/lasso/lasso.pdf
